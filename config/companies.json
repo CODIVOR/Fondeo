@@ -1,0 +1,28 @@
+{
+  "companies": [
+    {
+      "id": "apex",
+      "name": "Apex Trader Funding",
+      "file": "data/apex.json",
+      "active": true
+    },
+    {
+      "id": "lucid",
+      "name": "Lucid Trading",
+      "file": "data/lucid.json",
+      "active": true
+    },
+    {
+      "id": "tradeify",
+      "name": "Tradeify",
+      "file": "data/tradeify.json",
+      "active": true
+    },
+    {
+      "id": "topstep",
+      "name": "Topstep",
+      "file": "data/topstep.json",
+      "active": true
+    }
+  ]
+}
