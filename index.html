@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>¿Cuánto te cuesta fondear una cuenta?</title>
+
+    <style>
+        :root {
+            --bg: #15191b;
+            --panel: #0d1112;
+            --panel2: #111516;
+            --border: #303638;
+
+            --green: #08a85b;
+            --green2: #00c46a;
+            --red: #ef443c;
+
+            --text: #f1f1f1;
+            --muted: #9ca3a5;
+            --input: #202426;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
+        body {
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 75px 0 100px;
+        }
+
+        /* TITULO */
+
+        .title {
+            margin-bottom: 15px;
+        }
+
+        .title h1 {
+            display: inline-block;
+            margin: 0;
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+            position: relative;
+        }
+
+        .title h1::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 58px;
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                var(--green) 0 50%,
+                var(--red) 50% 100%
+            );
+        }
+
+        .description {
+            width: 360px;
+            color: #a7acad;
+            font-size: 10px;
+            line-height: 1.55;
+            margin-top: 22px;
+            margin-bottom: 16px;
+        }
+
+        /* MAIN */
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 265px 372px;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .left-card,
+        .right-card {
+            min-height: 590px;
+        }
+
+        /* FORM */
+
+        .field {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            color: #b9bdbd;
+            font-size: 8px;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            height: 28px;
+            border-radius: 5px;
+            border: 1px solid #3b4143;
+            background: var(--input);
+            color: #eeeeee;
+            padding: 0 9px;
+            outline: none;
+            font-size: 10px;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: var(--green);
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        /* PRECIO */
+
+        .coupon-box {
+            border: 1px solid var(--green);
+            background: rgba(0, 150, 80, .08);
+            border-radius: 5px;
+            padding: 9px 10px;
+            margin: 4px 0 12px;
+        }
+
+        .coupon-title {
+            font-size: 8px;
+            color: #c9cecf;
+            margin-bottom: 5px;
+        }
+
+        .coupon-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .old-price {
+            color: #777;
+            text-decoration: line-through;
+            font-size: 10px;
+        }
+
+        .new-price {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .discount {
+            background: var(--green);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 10px;
+        }
+
+        .info {
+            color: #a2a7a8;
+            font-size: 8px;
+            line-height: 1.5;
+            margin: 3px 0 15px;
+        }
+
+        .info a {
+            color: #ddd;
+        }
+
+        /* RESULTADO */
+
+        .result-intro {
+            font-size: 13px;
+            line-height: 1.45;
+            margin-bottom: 13px;
+        }
+
+        /* GRAFICO */
+
+        .chart {
+            height: 78px;
+            border-bottom: 1px solid #353a3b;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 3px;
+            margin: 3px 0 7px;
+            overflow: hidden;
+        }
+
+        .bar {
+            width: 15px;
+            border-radius: 1px 1px 0 0;
+        }
+
+        .bar.fail {
+            height: 12px;
+            background: var(--red);
+        }
+
+        .bar.success {
+            height: 73px;
+            background: var(--green);
+        }
+
+        /* LEYENDA */
+
+        .legend {
+            display: flex;
+            gap: 18px;
+            font-size: 7px;
+            color: #aeb3b4;
+            margin: 8px 0 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-color {
+            width: 6px;
+            height: 6px;
+            border-radius: 1px;
+        }
+
+        .legend-color.green {
+            background: var(--green);
+        }
+
+        .legend-color.red {
+            background: var(--red);
+        }
+
+        /* STATS */
+
+        .stats {
+            width: 100%;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 34px;
+            border-bottom: 1px solid #303536;
+            font-size: 9px;
+        }
+
+        .stat strong {
+            font-weight: 800;
+        }
+
+        .stat.total {
+            border-bottom: 1px solid #ddd;
+            min-height: 36px;
+            font-size: 10px;
+        }
+
+        .stat.total span:last-child {
+            font-weight: 800;
+        }
+
+        /* COMPARACION */
+
+        .compare-box {
+            border: 1px solid #303637;
+            border-radius: 7px;
+            margin-top: 16px;
+            padding: 11px;
+        }
+
+        .compare-title {
+            font-size: 8px;
+            margin-bottom: 9px;
+        }
+
+        .compare-row {
+            display: grid;
+            grid-template-columns: 72px 1fr 40px;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 8px;
+        }
+
+        .compare-name {
+            font-size: 8px;
+            color: #d0d3d3;
+        }
+
+        .progress {
+            height: 7px;
+            background: #24292a;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--green);
+        }
+
+        .compare-price {
+            text-align: right;
+            font-size: 8px;
+        }
+
+        .recommendation {
+            margin-top: 10px;
+            border: 1px solid #303637;
+            border-radius: 7px;
+            padding: 10px;
+            color: #c4c8c9;
+            font-size: 8px;
+            line-height: 1.5;
+        }
+
+        .recommendation strong {
+            color: white;
+        }
+
+        /* CUPON */
+
+        .coupon-info {
+            margin-top: 22px;
+            border-top: 1px solid #303637;
+            padding-top: 14px;
+            font-size: 9px;
+            line-height: 1.55;
+        }
+
+        .coupon-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            border: 1px solid #777;
+            background: #181c1d;
+            color: white;
+            border-radius: 5px;
+            padding: 7px 12px;
+            font-size: 8px;
+        }
+
+        .btn.green {
+            background: var(--green);
+            border-color: var(--green);
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            cursor: pointer;
+            filter: brightness(1.1);
+        }
+
+        /* ESTADO DE CARGA */
+
+        .loading {
+            color: var(--muted);
+            font-size: 9px;
+            padding: 10px 0;
+        }
+
+        .error {
+            color: var(--red);
+            font-size: 9px;
+            padding: 10px 0;
+        }
+
+        /* HEADER */
+
+        .top-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 48px;
+            background: #0c1011;
+            border-top: 1px solid #282d2e;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1340px;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 900;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .logo::after {
+            content: "";
+            display: block;
+            width: 58px;
+            height: 2px;
+            margin-top: 3px;
+            background: linear-gradient(
+                90deg,
+                var(--green) 0 50%,
+                var(--red) 50% 100%
+            );
+        }
+
+        .menu {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .menu span {
+            font-size: 7px;
+            color: #b7bbbb;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .nav-button {
+            margin-left: 25px;
+            background: var(--green);
+            color: white;
+            padding: 8px 15px;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 750px) {
+
+            .page {
+                width: 94%;
+                padding-top: 40px;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .description {
+                width: 100%;
+            }
+
+            .menu {
+                display: none;
+            }
+
+            .nav-button {
+                margin-left: auto;
+            }
+
+            .left-card,
+            .right-card {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="title">
+        <h1>¿Cuánto te cuesta fondear una cuenta?</h1>
+    </div>
+
+    <div class="description">
+        Elige la empresa y la cuenta, ajusta tus números y mira cuánto
+        gastarías en evaluaciones y activaciones antes de conseguir tus
+        cuentas fondeadas.
+    </div>
+
+    <div class="main-grid">
+
+        <!-- ========================= -->
+        <!-- COLUMNA IZQUIERDA -->
+        <!-- ========================= -->
+
+        <div class="card left-card">
+
+            <div id="loading" class="loading">
+                Cargando empresas...
+            </div>
+
+            <div id="formulario" style="display:none;">
+
+                <div class="field">
+                    <label>Empresa de fondeo</label>
+
+                    <select id="empresa"></select>
+                </div>
+
+                <div class="field">
+                    <label>Tipo / cuenta</label>
+
+                    <select id="cuenta"></select>
+                </div>
+
+                <div class="two-columns">
+
+                    <div class="field">
+
+                        <label>
+                            Precio full de la evaluación
+                        </label>
+
+                        <input
+                            id="precioFull"
+                            type="number"
+                            readonly
+                        >
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+                            Descuento del cupón
+                        </label>
+
+                        <div style="position:relative">
+
+                            <input
+                                id="descuento"
+                                type="number"
+                                readonly
+                            >
+
+                            <span style="
+                                position:absolute;
+                                right:9px;
+                                top:7px;
+                                color:#aaa;
+                                font-size:9px;
+                            ">%</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PRECIO CON CUPON -->
+
+                <div class="coupon-box">
+
+                    <div class="coupon-title">
+                        Precio que pagas con el cupón
+                        <strong id="couponCode">
+                            LONDON
+                        </strong>
+                    </div>
+
+                    <div class="coupon-price">
+
+                        <span
+                            class="old-price"
+                            id="precioViejo"
+                        >
+                            $0
+                        </span>
+
+                        <span
+                            class="new-price"
+                            id="precioCupon"
+                        >
+                            $0
+                        </span>
+
+                        <span
+                            class="discount"
+                            id="badgeDescuento"
+                        >
+                            -0%
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Fee de activación
+                    </label>
+
+                    <input
+                        id="activationFee"
+                        type="number"
+                        readonly
+                    >
+
+                </div>
+
+                <div class="info">
+
+                    Precios y descuentos cargados desde
+                    la configuración de la empresa.
+
+                    <br>
+
+                    <span id="lastUpdated"></span>
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Evaluaciones que comprarías
+                    </label>
+
+                    <input
+                        id="evaluaciones"
+                        type="number"
+                        value="10"
+                        min="1"
+                        max="100"
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Porcentaje de evaluaciones que apruebas
+                    </label>
+
+                    <div style="position:relative">
+
+                        <input
+                            id="porcentaje"
+                            type="number"
+                            value="20"
+                            min="0"
+                            max="100"
+                        >
+
+                        <span style="
+                            position:absolute;
+                            right:9px;
+                            top:7px;
+                            color:#aaa;
+                            font-size:9px;
+                        ">%</span>
+
+                    </div>
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Cuenta para comparar
+                    </label>
+
+                    <select id="comparar">
+
+                        <option value="64.08">
+                            Lucid 25K Flex ($64.08)
+                        </option>
+
+                        <option value="100">
+                            Otra cuenta ($100)
+                        </option>
+
+                        <option value="150">
+                            Otra cuenta ($150)
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div id="error" class="error" style="display:none;"></div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- COLUMNA DERECHA -->
+        <!-- ========================= -->
+
+        <div class="card right-card">
+
+            <div class="result-intro">
+
+                Con <strong id="txtEvaluaciones">10 evaluaciones</strong>
+                y
+                <strong id="txtPorcentaje">20 %</strong>
+                de efectividad, conseguirías en promedio
+                <strong id="txtAprobadas">2 cuentas fondeadas</strong>
+                y gastarías
+                <strong id="txtTotal">$0</strong>.
+
+            </div>
+
+            <!-- GRAFICO -->
+
+            <div
+                class="chart"
+                id="chart"
+            ></div>
+
+            <div class="legend">
+
+                <div class="legend-item">
+
+                    <span class="legend-color green"></span>
+
+                    Aprobadas: evaluación + activación
+
+                </div>
+
+                <div class="legend-item">
+
+                    <span class="legend-color red"></span>
+
+                    No aprobadas: evaluación
+
+                </div>
+
+            </div>
+
+            <!-- ESTADISTICAS -->
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <span>Evaluaciones</span>
+
+                    <span id="statEvaluaciones">
+                        $0
+                    </span>
+
+                </div>
+
+                <div class="stat">
+
+                    <span>Activaciones</span>
+
+                    <span id="statActivaciones">
+                        $0
+                    </span>
+
+                </div>
+
+                <div class="stat total">
+
+                    <span>
+                        <strong>
+                            Gasto total estimado
+                        </strong>
+                    </span>
+
+                    <span id="statTotal">
+                        $0
+                    </span>
+
+                </div>
+
+                <div class="stat">
+
+                    <span>
+                        Costo por cuenta fondeada
+                    </span>
+
+                    <span id="statPorCuenta">
+                        $0
+                    </span>
+
+                </div>
+
+                <div class="stat">
+
+                    <span>
+                        Probabilidad de no aprobar ninguna
+                    </span>
+
+                    <span id="statProbabilidad">
+                        0 %
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- COMPARACION -->
+
+            <div class="compare-box">
+
+                <div class="compare-title">
+                    Comparación de costo por cuenta fondeada
+                </div>
+
+                <div class="compare-row">
+
+                    <div
+                        class="compare-name"
+                        id="compareApexName"
+                    >
+                        Apex
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-fill"
+                            id="barApex"
+                            style="width:100%"
+                        ></div>
+
+                    </div>
+
+                    <div
+                        class="compare-price"
+                        id="compareApex"
+                    >
+                        $0
+                    </div>
+
+                </div>
+
+                <div class="compare-row">
+
+                    <div class="compare-name">
+                        Lucid 25K
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-fill"
+                            id="barLucid"
+                            style="width:20%"
+                        ></div>
+
+                    </div>
+
+                    <div
+                        class="compare-price"
+                        id="compareLucid"
+                    >
+                        $64.08
+                    </div>
+
+                </div>
+
+                <div class="recommendation">
+
+                    <strong>Comparación:</strong>
+
+                    <span id="recommendationText">
+                        Selecciona una cuenta para comenzar.
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- CUPON -->
+
+            <div class="coupon-info">
+
+                Con el cupón
+                <strong id="couponTextCode">
+                    LONDON
+                </strong>
+                pagas
+                <strong id="couponTextPrice">
+                    $0
+                </strong>
+                en lugar de
+                <strong id="couponTextFull">
+                    $0
+                </strong>
+                por evaluación
+                (<strong id="couponTextDiscount">
+                    0 %
+                </strong>
+                de descuento).
+
+                En tus
+                <strong id="couponTextEvals">
+                    10
+                </strong>
+                evaluaciones te ahorras
+                <strong id="couponSavings">
+                    $0
+                </strong>.
+
+                <div class="coupon-buttons">
+
+                    <button
+                        class="btn"
+                        onclick="copiarCodigo()"
+                    >
+                        Código
+                    </button>
+
+                    <button
+                        class="btn green"
+                        id="couponButton"
+                        onclick="copiarCodigo()"
+                    >
+                        LONDON
+                    </button>
+
+                    <button
+                        class="btn"
+                        id="goWebsite"
+                        type="button"
+                    >
+                        Ir a la empresa
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- NAV INFERIOR -->
+<!-- ========================= -->
+
+<div class="top-nav">
+
+    <div class="nav-inner">
+
+        <div class="logo">
+
+            LONDON
+
+            <div style="
+                font-size:6px;
+                letter-spacing:2px;
+                color:#aaa;
+            ">
+                TRADER
+            </div>
+
+        </div>
+
+        <div class="menu">
+
+            <span>HOME</span>
+            <span>EMPRESAS DE FONDEO</span>
+            <span>COMPARADOR FUTUROS</span>
+            <span>BOTER DE MERCADOS</span>
+            <span>RECURSOS⌄</span>
+
+        </div>
+
+        <div class="nav-button">
+            VER CUPONES
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

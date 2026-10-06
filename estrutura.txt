@@ -1,0 +1,29 @@
+Entonces seguimos con esta arquitectura:
+
+fondeo/
+├── index.html
+├── js/
+│   └── app.js
+├── data/
+│   ├── apex.json
+│   ├── lucid.json
+│   ├── tradeify.json
+│   └── topstep.json
+└── admin/
+    └── ...
+
+Orden recomendado:
+
+    apex.json → todos los precios, tipos de cuenta, descuentos y fees.
+
+    app.js → motor que lee cualquier empresa.
+
+    index.html → solo interfaz.
+
+    Agregar las demás empresas mediante sus JSON.
+
+    Panel admin → modificar precios sin editar código.
+
+    Opcionalmente, automatizar la comprobación de precios oficiales.
+
+Así, cuando Apex cambie un precio, no tendrás que tocar el diseño ni la lógica del comparador.
