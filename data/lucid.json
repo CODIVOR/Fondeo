@@ -1,0 +1,46 @@
+{
+  "id": "lucid",
+  "name": "Lucid Trading",
+  "website": "",
+  "currency": "USD",
+
+  "coupon": {
+    "code": "LONDON",
+    "enabled": false
+  },
+
+  "accountTypes": [
+    {
+      "id": "flex",
+      "name": "Flex"
+    }
+  ],
+
+  "accounts": [
+    {
+      "id": "25k_flex",
+      "name": "25K Flex",
+      "size": 25000,
+      "type": "flex",
+
+      "pricing": {
+        "normal": 64.08,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 64.08
+      },
+
+      "activation": {
+        "standard": 0,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 1500,
+        "maxDrawdown": 750
+      }
+    }
+  ],
+
+  "lastUpdated": "2026-10-04"
+}
