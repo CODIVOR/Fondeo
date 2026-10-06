@@ -1,1 +1,233 @@
+{
+  "id": "apex",
+  "name": "Apex Trader Funding",
+  "website": "https://apextraderfunding.com/",
+  "currency": "USD",
 
+  "coupon": {
+    "code": "LONDON",
+    "enabled": true
+  },
+
+  "accountTypes": [
+    {
+      "id": "intraday_trail",
+      "name": "Intraday Trail",
+      "description": "Evaluación con trailing drawdown intradía"
+    },
+    {
+      "id": "eod_trail",
+      "name": "EOD Trail",
+      "description": "Evaluación con drawdown calculado al cierre"
+    }
+  ],
+
+  "accounts": [
+    {
+      "id": "25k_intraday",
+      "name": "25K Intraday Trail",
+      "size": 25000,
+      "type": "intraday_trail",
+
+      "pricing": {
+        "normal": 167,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 167
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 1500,
+        "maxDrawdown": 1000,
+        "maxContracts": 4,
+        "maxMicros": 40
+      }
+    },
+
+    {
+      "id": "50k_intraday",
+      "name": "50K Intraday Trail",
+      "size": 50000,
+      "type": "intraday_trail",
+
+      "pricing": {
+        "normal": 167,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 167
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 3000,
+        "maxDrawdown": 2000,
+        "maxContracts": 10,
+        "maxMicros": 100
+      }
+    },
+
+    {
+      "id": "100k_intraday",
+      "name": "100K Intraday Trail",
+      "size": 100000,
+      "type": "intraday_trail",
+
+      "pricing": {
+        "normal": 207,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 207
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 6000,
+        "maxDrawdown": 3000,
+        "maxContracts": 14,
+        "maxMicros": 140
+      }
+    },
+
+    {
+      "id": "150k_intraday",
+      "name": "150K Intraday Trail",
+      "size": 150000,
+      "type": "intraday_trail",
+
+      "pricing": {
+        "normal": 297,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 297
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 9000,
+        "maxDrawdown": 4000,
+        "maxContracts": 17,
+        "maxMicros": 170
+      }
+    },
+
+    {
+      "id": "25k_eod",
+      "name": "25K EOD Trail",
+      "size": 25000,
+      "type": "eod_trail",
+
+      "pricing": {
+        "normal": 167,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 167
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 1500,
+        "maxDrawdown": 1000,
+        "dailyLossLimit": 500
+      }
+    },
+
+    {
+      "id": "50k_eod",
+      "name": "50K EOD Trail",
+      "size": 50000,
+      "type": "eod_trail",
+
+      "pricing": {
+        "normal": 167,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 167
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 3000,
+        "maxDrawdown": 2000,
+        "dailyLossLimit": 1000
+      }
+    },
+
+    {
+      "id": "100k_eod",
+      "name": "100K EOD Trail",
+      "size": 100000,
+      "type": "eod_trail",
+
+      "pricing": {
+        "normal": 207,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 207
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 6000,
+        "maxDrawdown": 3000,
+        "dailyLossLimit": 1500
+      }
+    },
+
+    {
+      "id": "150k_eod",
+      "name": "150K EOD Trail",
+      "size": 150000,
+      "type": "eod_trail",
+
+      "pricing": {
+        "normal": 297,
+        "discount": 0,
+        "discountType": "percent",
+        "priceAfterDiscount": 297
+      },
+
+      "activation": {
+        "standard": 79,
+        "noActivationFee": 0
+      },
+
+      "rules": {
+        "profitTarget": 9000,
+        "maxDrawdown": 4000,
+        "dailyLossLimit": 2000
+      }
+    }
+  ],
+
+  "lastUpdated": "2026-10-04",
+  "source": "https://apextraderfunding.com/"
+}
